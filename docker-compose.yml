@@ -91,6 +91,7 @@ services:
     ports:
       - "9000:9000"
       - "12201:12201"
+      - "12201:12201/udp"
     depends_on:
       - mongo
       - elasticsearch
