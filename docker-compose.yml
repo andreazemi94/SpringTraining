@@ -143,3 +143,13 @@ services:
       spring-training:
         aliases:
           - postgres.spring-training.it
+
+  config-server:
+    image: spring-training_config-server:latest
+    container_name: spring-training_config_server
+    ports:
+      - "8888:8888"
+    networks:
+      spring-training:
+        aliases:
+          - config-server.spring-training.it
