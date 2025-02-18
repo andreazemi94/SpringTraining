@@ -1,0 +1,145 @@
+version: '3.8'
+
+networks:
+  spring-training:
+    name: spring-training
+    driver: bridge
+
+volumes:
+  postgres-volume-kafka-graylog:
+  mongo-data-kafka-graylog:
+  es-data-kafka-graylog:
+
+services:
+  kafka:
+    image: confluentinc/cp-kafka:7.5.0
+    container_name: spring-training_kafka
+    ports:
+      - "9092:9092"
+      - "29092:29092"
+    environment:
+      KAFKA_KRAFT_MODE: "true"
+      KAFKA_PROCESS_ROLES: controller,broker
+      KAFKA_NODE_ID: 1
+      KAFKA_CONTROLLER_QUORUM_VOTERS: 1@localhost:9093
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092,EXTERNAL://0.0.0.0:29092,CONTROLLER://0.0.0.0:9093
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,EXTERNAL:PLAINTEXT,CONTROLLER:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,EXTERNAL://localhost:29092
+      KAFKA_LOG_DIRS: /var/lib/kafka/data
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_LOG_RETENTION_HOURS: 168
+      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+      CLUSTER_ID: "r4zt_wrqTRuT7W2NJsB_GA"
+    networks:
+      spring-training:
+        aliases:
+          - kafka.spring-training.it
+
+  schema-registry:
+    image: confluentinc/cp-schema-registry:7.5.0
+    container_name: spring-training_schema-registry
+    depends_on:
+     - kafka
+    ports:
+     - "8085:8085"
+    environment:
+      SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS: PLAINTEXT://kafka:9092
+      SCHEMA_REGISTRY_HOST_NAME: schema-registry
+      SCHEMA_REGISTRY_LISTENERS: http://0.0.0.0:8085
+    networks:
+      spring-training:
+        aliases:
+         - schemaregistry.spring-training.it
+
+  control-center:
+    image: confluentinc/cp-enterprise-control-center:latest
+    container_name: spring-training_control-center
+    depends_on:
+      - kafka
+      - schema-registry
+    environment:
+      CONTROL_CENTER_BOOTSTRAP_SERVERS: kafka:9092
+      CONTROL_CENTER_ZOOKEEPER_CONNECT: zookeeper:2181
+      CONTROL_CENTER_SCHEMA_REGISTRY_URL: http://schema-registry:8085
+      CONTROL_CENTER_CONNECT_CLUSTER: http://connect:8083
+      CONTROL_CENTER_KSQL_KSQLDB_URL: http://ksqldb-server:8088
+      CONTROL_CENTER_METRICS_TOPIC_NUM_PARTITIONS: 1
+      CONTROL_CENTER_MONITORING_INTERCEPTOR_TOPIC_PARTITIONS: 1
+      CONTROL_CENTER_INTERNAL_TOPICS_PARTITIONS: 1
+      CONTROL_CENTER_INTERNAL_TOPICS_REPLICATION: 1
+      CONTROL_CENTER_REPLICATION_FACTOR: 1
+      CONTROL_CENTER_AUDIT_LOG_ENABLED: "true"
+      CONTROL_CENTER_AUDIT_LOG_TOPIC: "confluent-audit-log-events"
+      CONTROL_CENTER_AUDIT_LOG_BOOTSTRAP_SERVERS: kafka:9092
+    ports:
+      - "9021:9021"
+    networks:
+      spring-training:
+        aliases:
+          - control-center.spring-training.it
+
+  graylog:
+    image: graylog/graylog:5.0
+    container_name: spring-training_graylog
+    environment:
+      GRAYLOG_PASSWORD_SECRET: graylogpassword2
+      GRAYLOG_ROOT_PASSWORD_SHA2: dc53c4b732a64731f0aaacb441533915e059c570fd88cf7438b5c564e088635f
+      GRAYLOG_HTTP_EXTERNAL_URI: http://graylog:9000/
+    ports:
+      - "9000:9000"
+      - "12201:12201"
+    depends_on:
+      - mongo
+      - elasticsearch
+      - kafka
+    networks:
+      spring-training:
+        aliases:
+          - graylog.spring-training.it
+
+  mongo:
+    image: mongo:5.0
+    container_name: spring-training_mongo
+    volumes:
+      - mongo-data-kafka-graylog:/data/db
+    networks:
+      spring-training:
+        aliases:
+          - mongo.spring-training.it
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.10.0
+    container_name: spring-training_elasticsearch
+    environment:
+      discovery.type: single-node
+      ES_JAVA_OPTS: -Xms512m -Xmx512m
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    volumes:
+      - es-data-kafka-graylog:/usr/share/elasticsearch/data
+    networks:
+      spring-training:
+        aliases:
+          - elasticsearch.spring-training.it
+
+  postgresql:
+    image: postgres
+    container_name: spring-training_postgresql
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=spring-training_user
+      - POSTGRES_PASSWORD=spring-training
+      - POSTGRES_DB=spring-training
+      - PGDATA=/var/lib/postgresql/data/pgdata
+      - SCHED_DB_BACKUP="false"
+    volumes:
+      - postgres-volume-kafka-graylog:/var/lib/postgresql/data/pgdata
+    networks:
+      spring-training:
+        aliases:
+          - postgres.spring-training.it

@@ -1,0 +1,23 @@
+spring:
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/spring-training
+    username: spring-training_user
+    password: spring-training
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+
+  kafka:
+    bootstrap-servers: localhost:29092
+    properties:
+      schema:
+        registry:
+          cache-capacity: 10000
+          url: http://localhost:8085
