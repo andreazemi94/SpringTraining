@@ -1,0 +1,7 @@
+
+spring:
+  application:
+    name: order-microservice
+
+server:
+  port: 8081
