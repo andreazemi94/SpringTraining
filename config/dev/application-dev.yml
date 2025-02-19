@@ -21,3 +21,7 @@ spring:
         registry:
           cache-capacity: 10000
           url: http://localhost:8085
+
+  graylog:
+    host: localhost
+    port: 12201

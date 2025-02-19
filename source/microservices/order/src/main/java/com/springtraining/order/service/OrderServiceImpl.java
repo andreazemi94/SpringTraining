@@ -1,6 +1,5 @@
 package com.springtraining.order.service;
 
-import com.myproject.order.model.*;
 import com.springtraining.order.model.Order;
 import com.springtraining.order.model.OrderStatus;
 import com.springtraining.order.repository.OrderRepository;

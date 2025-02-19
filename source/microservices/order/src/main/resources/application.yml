@@ -5,18 +5,7 @@ server:
 spring:
   application:
     name: order-microservice
-    facility-num: 5
-
-  datasource:
-    url: jdbc:postgresql://localhost:5432/spring-training
-    username: spring-training_user
-    password: spring-training
-    driver-class-name: org.postgresql.Driver
-
-  jpa:
-    hibernate:
-      ddl-auto: update
-    show-sql: false
-    properties:
-      hibernate:
-        format_sql: true
+  cloud:
+    config:
+      uri: http://localhost:8888
+      fail-fast: true

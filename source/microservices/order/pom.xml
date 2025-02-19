@@ -20,6 +20,7 @@
 		<openApiVersion>2.7.0</openApiVersion>
 		<swaggerVersion>2.2.13</swaggerVersion>
 		<logbackGelfVersion>6.1.1</logbackGelfVersion>
+		<spring-cloud.version>2024.0.0</spring-cloud.version>
 	</properties>
 
 	<repositories>
@@ -44,6 +45,10 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-config</artifactId>
 		</dependency>
 		<!-- PostgreSQL -->
 		<dependency>
@@ -75,6 +80,18 @@
 			<version>${logbackGelfVersion}</version>
 		</dependency>
 	</dependencies>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-dependencies</artifactId>
+				<version>${spring-cloud.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 
 	<build>
 		<plugins>
