@@ -21,6 +21,8 @@
 		<swaggerVersion>2.2.13</swaggerVersion>
 		<logbackGelfVersion>6.1.1</logbackGelfVersion>
 		<spring-cloud.version>2024.0.0</spring-cloud.version>
+		<avroSchemaVersion>7.3.0</avroSchemaVersion>
+		<avroVersion>1.12.0</avroVersion>
 	</properties>
 
 	<repositories>
@@ -28,6 +30,11 @@
 		<repository>
 			<id>central</id>
 			<url>https://repo.maven.apache.org/maven2</url>
+		</repository>
+		<!-- Confluent Repository -->
+		<repository>
+			<id>confluent</id>
+			<url>https://packages.confluent.io/maven</url>
 		</repository>
 	</repositories>
 
@@ -78,6 +85,26 @@
 			<groupId>de.siegmar</groupId>
 			<artifactId>logback-gelf</artifactId>
 			<version>${logbackGelfVersion}</version>
+		</dependency>
+		<!-- Kafka and Avro and Schema Registry Confluent -->
+		<dependency>
+			<groupId>org.springframework.kafka</groupId>
+			<artifactId>spring-kafka</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.confluent</groupId>
+			<artifactId>kafka-avro-serializer</artifactId>
+			<version>${avroSchemaVersion}</version>
+		</dependency>
+		<dependency>
+			<groupId>io.confluent</groupId>
+			<artifactId>kafka-schema-registry-client</artifactId>
+			<version>${avroSchemaVersion}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.avro</groupId>
+			<artifactId>avro</artifactId>
+			<version>${avroVersion}</version>
 		</dependency>
 	</dependencies>
 
