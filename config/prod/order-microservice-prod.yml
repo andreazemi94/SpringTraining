@@ -6,7 +6,7 @@ kafka:
   topic:
     order: microservice-order
   producer:
-    key-serializer: org.apache.kafka.common.serialization.StringSerializer
+    key-serializer: org.apache.kafka.common.serialization.LongSerializer
     value-serializer: io.confluent.kafka.serializers.KafkaAvroSerializer
 server:
   port: 8081
