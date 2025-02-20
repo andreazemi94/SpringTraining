@@ -2,6 +2,14 @@
 spring:
   application:
     name: order-microservice
+  config:
+    import: configserver:http://config-server:8888
+  cloud:
+    config:
+      uri: http://config-server:8888
+      label: main
+      profile: dev
+      failFast: true
 
 server:
   port: 8081

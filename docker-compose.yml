@@ -154,3 +154,19 @@ services:
       spring-training:
         aliases:
           - config-server.spring-training.it
+
+  order-microservice:
+    image: spring-training_order-microservice:latest
+    container_name: spring-training_order-microservice
+    ports:
+      - "8081:8081"
+    environment:
+      SPRING_CONFIG_IMPORT: configserver:http://config-server:8888
+      SPRING_CLOUD_CONFIG_URI: http://config-server:8888
+      SPRING_CLOUD_CONFIG_LABEL: main
+      SPRING_CLOUD_CONFIG_PROFILE: prod
+      SPRING_CLOUD_CONFIG_FAILFAST: "true"
+    networks:
+      spring-training:
+        aliases:
+          - order-microservice.spring-training.it
