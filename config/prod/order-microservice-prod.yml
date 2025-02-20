@@ -8,7 +8,7 @@ spring:
     config:
       uri: http://config-server:8888
       label: main
-      profile: dev
+      profile: prod
       failFast: true
 
 server:
