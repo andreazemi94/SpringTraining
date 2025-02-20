@@ -2,11 +2,11 @@
 spring:
   application:
     name: order-microservice
-kafka:
-  topic:
-    order: microservice-order
-  producer:
-    key-serializer: org.apache.kafka.common.serialization.StringSerializer
-    value-serializer: io.confluent.kafka.serializers.KafkaAvroSerializer
+  kafka:
+    topic:
+      order: microservice-order
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: io.confluent.kafka.serializers.KafkaAvroSerializer
 server:
   port: 8081
