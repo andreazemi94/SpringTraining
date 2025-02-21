@@ -1,5 +1,6 @@
 package com.springtraining.order.service;
 
+import com.springtraining.order.kafka.KafkaProducer;
 import com.springtraining.order.model.Order;
 import com.springtraining.order.model.OrderStatus;
 import com.springtraining.order.repository.OrderRepository;
@@ -15,6 +16,7 @@ import java.util.*;
 public class OrderServiceImpl implements OrderService{
 
     private final OrderRepository orderRepository;
+    private final KafkaProducer kafkaProducer;
 
     @Transactional
     @Override
@@ -32,6 +34,7 @@ public class OrderServiceImpl implements OrderService{
         log.info("Set order date: {}", order);
         orderRepository.save(order);
         log.info("Order created successfully in the database: {}", order);
+        kafkaProducer.sendMessage(order);
         return order;
     }
 

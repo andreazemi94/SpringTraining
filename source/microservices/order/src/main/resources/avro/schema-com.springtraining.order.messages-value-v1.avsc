@@ -1,0 +1,30 @@
+{
+  "fields": [
+    {
+      "name": "orderId",
+      "type": "long"
+    },
+    {
+      "name": "customerId",
+      "type": "long"
+    },
+    {
+      "name": "orderDate",
+      "type": "long"
+    },
+    {
+      "name": "totalAmount",
+      "type": "double"
+    },
+    {
+      "name": "status",
+      "type": {
+        "avro.java.string": "String",
+        "type": "string"
+      }
+    }
+  ],
+  "name": "OrderDto",
+  "namespace": "com.springtraining.order.model.dto",
+  "type": "record"
+}
