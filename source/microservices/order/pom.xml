@@ -28,6 +28,8 @@
 		<mavenCompilerVersion>1.8</mavenCompilerVersion>
 		<logbackGelfVersion>6.1.1</logbackGelfVersion>
 		<spring-cloud.version>2024.0.0</spring-cloud.version>
+		<schema.registry.url>http://localhost:8085</schema.registry.url>
+		<spring.kafka.topic.order>com.springtraining.order.messages</spring.kafka.topic.order>
 	</properties>
 
 	<repositories>
@@ -42,6 +44,17 @@
 			<url>https://packages.confluent.io/maven</url>
 		</repository>
 	</repositories>
+
+	<pluginRepositories>
+		<pluginRepository>
+			<id>central</id>
+			<url>https://repo.maven.apache.org/maven2</url>
+		</pluginRepository>
+		<pluginRepository>
+			<id>confluent</id>
+			<url>https://packages.confluent.io/maven</url>
+		</pluginRepository>
+	</pluginRepositories>
 
 	<dependencies>
 		<!-- Spring Boot dependencies -->
@@ -136,6 +149,34 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>io.confluent</groupId>
+				<artifactId>kafka-schema-registry-maven-plugin</artifactId>
+				<version>${schemaRegistryPlugVers}</version>
+				<configuration>
+					<schemaRegistryUrls>
+						<param>${schema.registry.url}</param>
+					</schemaRegistryUrls>
+					<outputDirectory>src/main/resources/avro</outputDirectory>
+					<subjectPatterns>
+						<param>^${spring.kafka.topic.order}-(key|value)$</param>
+					</subjectPatterns>
+					<compatibilityLevels/>
+					<messagePath/>
+					<outputPath/>
+					<previousSchemaPaths/>
+					<schemas/>
+					<subjects/>
+				</configuration>
+				<executions>
+					<execution>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>download</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.avro</groupId>
