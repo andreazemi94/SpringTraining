@@ -6,7 +6,7 @@ spring:
     topic:
       order: com.springtraining.order.messages
     producer:
-      key-serializer: org.apache.kafka.common.serialization.LongSerializer
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: io.confluent.kafka.serializers.KafkaAvroSerializer
 server:
   port: 8081
