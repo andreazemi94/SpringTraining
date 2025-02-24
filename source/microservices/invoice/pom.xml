@@ -37,6 +37,7 @@
 		<logbackGelfVersion>6.1.1</logbackGelfVersion>
 		<spring-cloud.version>2024.0.0</spring-cloud.version>
 		<schema.registry.url>http://localhost:8085</schema.registry.url>
+		<spring.kafka.topic.order>com.springtraining.order.messages</spring.kafka.topic.order>
 		<spring.kafka.topic.invoice>com.springtraining.invoice.messages</spring.kafka.topic.invoice>
 	</properties>
 
@@ -105,6 +106,10 @@
 		</dependency>
 		<!-- Kafka and Avro and Schema Registry Confluent -->
 		<dependency>
+			<groupId>org.springframework.kafka</groupId>
+			<artifactId>spring-kafka</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>org.apache.kafka</groupId>
 			<artifactId>kafka-streams</artifactId>
 		</dependency>
@@ -122,6 +127,11 @@
 			<groupId>org.apache.avro</groupId>
 			<artifactId>avro</artifactId>
 			<version>${avroVersion}</version>
+		</dependency>
+		<dependency>
+			<groupId>io.confluent</groupId>
+			<artifactId>kafka-streams-avro-serde</artifactId>
+			<version>${avroSchemaVersion}</version>
 		</dependency>
 		<!-- Model mapper -->
 		<dependency>
@@ -158,6 +168,7 @@
 					</schemaRegistryUrls>
 					<outputDirectory>src/main/resources/avro</outputDirectory>
 					<subjectPatterns>
+						<param>^${spring.kafka.topic.order}-(key|value)$</param>
 						<param>^${spring.kafka.topic.invoice}-(key|value)$</param>
 					</subjectPatterns>
 					<compatibilityLevels/>
