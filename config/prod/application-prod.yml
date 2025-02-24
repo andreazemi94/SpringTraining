@@ -25,3 +25,11 @@ spring:
   graylog:
     host: graylog
     port: 12201
+    
+  cloud:
+    bus:
+      enabled: true
+    stream:
+      bindings:
+        output:
+          destination: com.springtraining.topic.config
