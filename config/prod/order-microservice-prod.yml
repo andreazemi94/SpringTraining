@@ -4,7 +4,7 @@ spring:
     name: order-microservice
   kafka:
     topic:
-      order: com.springtraining.order.messages1
+      order: com.springtraining.order.messages_test
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: io.confluent.kafka.serializers.KafkaAvroSerializer
