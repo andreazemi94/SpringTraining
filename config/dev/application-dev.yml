@@ -31,5 +31,17 @@ spring:
       enabled: true
     stream:
       bindings:
-        output:
-          destination: com.springtraining.topic.config
+        springCloudBusInput:
+          destination: springCloudBus
+          consumer:
+            content-type: application/json
+      kafka:
+        bindings:
+          springCloudBusInput:
+            consumer:
+              # Forza l'uso dello String deserializer per il bus
+              value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+          springCloudBusOutput:
+            producer:
+              # Forza l'uso dello String serializer per il bus
+              value-serializer: org.apache.kafka.common.serialization.StringSerializer
