@@ -2,6 +2,13 @@ spring:
   application:
     name: Spring Training Config Server
   cloud:
+    cloud:
+      bus:
+        enabled: true
+      stream:
+        bindings:
+          output:
+            destination: com.springtraining.topic.config
     config:
       server:
         git:
