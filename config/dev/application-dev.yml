@@ -29,3 +29,16 @@ spring:
   cloud:
     bus:
       enabled: true
+    stream:
+      bindings:
+        springCloudBusInput:
+          consumer:
+            content-type: application/json
+      kafka:
+        bindings:
+          springCloudBusInput:
+            consumer:
+              value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+          springCloudBusOutput:
+            producer:
+              value-serializer: org.apache.kafka.common.serialization.StringSerializer
