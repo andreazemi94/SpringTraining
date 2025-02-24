@@ -150,6 +150,8 @@ services:
     container_name: spring-training_config_server
     ports:
       - "8888:8888"
+    environment:
+      SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
     networks:
       spring-training:
         aliases:
