@@ -18,6 +18,8 @@ spring:
           search-paths:
             - config/dev
             - config/prod
+    kafka:
+      bootstrap-servers: "${SPRING_KAFKA_BOOTSTRAP_SERVERS:localhost:9092}"
 server:
   port: 8888
 
