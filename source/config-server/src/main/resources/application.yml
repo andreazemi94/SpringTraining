@@ -2,9 +2,8 @@ spring:
   application:
     name: Spring Training Config Server
   cloud:
-    cloud:
-      bus:
-        enabled: true
+    bus:
+      enabled: true
     config:
       server:
         git:
