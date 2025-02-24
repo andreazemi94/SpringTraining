@@ -5,10 +5,6 @@ spring:
     cloud:
       bus:
         enabled: true
-      stream:
-        bindings:
-          output:
-            destination: com.springtraining.topic.config
     config:
       server:
         git:
