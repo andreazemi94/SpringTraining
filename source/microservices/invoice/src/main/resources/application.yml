@@ -1,0 +1,11 @@
+
+spring:
+  application:
+    name: invoice-microservice
+  config:
+    import: "${SPRING_CONFIG_IMPORT:configserver:http://localhost:8888}"
+  cloud:
+    config:
+      label: "${SPRING_CLOUD_CONFIG_LABEL:main}"
+      profile: "${SPRING_CLOUD_CONFIG_PROFILE:dev}"
+      failFast: "${SPRING_CLOUD_CONFIG_FAILFAST:true}"

@@ -1,0 +1,10 @@
+
+spring:
+  application:
+    name: invoice-microservice
+  kafka:
+    topic:
+      order: com.springtraining.order.messages
+      invoice: com.springtraining.invoice.messages
+server:
+  port: 8082

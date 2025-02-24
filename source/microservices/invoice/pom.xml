@@ -5,20 +5,29 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.4.1</version>
+		<version>3.4.3</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.spring-training</groupId>
-	<artifactId>order</artifactId>
+	<groupId>com.springtraining</groupId>
+	<artifactId>invoice</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>Order microservice</name>
-	<description>Order microservice</description>
+	<name>Invoice Microservice</name>
+	<description>Invoice Microservice</description>
 	<url/>
-
+	<licenses>
+		<license/>
+	</licenses>
+	<developers>
+		<developer/>
+	</developers>
+	<scm>
+		<connection/>
+		<developerConnection/>
+		<tag/>
+		<url/>
+	</scm>
 	<properties>
 		<java.version>17</java.version>
-		<openApiVersion>2.7.0</openApiVersion>
-		<swaggerVersion>2.2.13</swaggerVersion>
 		<avroSchemaVersion>7.3.0</avroSchemaVersion>
 		<avroVersion>1.12.0</avroVersion>
 		<schemaRegistryPlugVers>7.8.0</schemaRegistryPlugVers>
@@ -28,7 +37,7 @@
 		<logbackGelfVersion>6.1.1</logbackGelfVersion>
 		<spring-cloud.version>2024.0.0</spring-cloud.version>
 		<schema.registry.url>http://localhost:8085</schema.registry.url>
-		<spring.kafka.topic.order>com.springtraining.order.messages</spring.kafka.topic.order>
+		<spring.kafka.topic.invoice>com.springtraining.invoice.messages</spring.kafka.topic.invoice>
 	</properties>
 
 	<repositories>
@@ -62,17 +71,19 @@
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-config</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<scope>runtime</scope>
+			<optional>true</optional>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-config</artifactId>
 		</dependency>
 		<!-- PostgreSQL -->
 		<dependency>
@@ -86,17 +97,6 @@
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
 		</dependency>
-		<!-- Swagger/OpenAPI -->
-		<dependency>
-			<groupId>org.springdoc</groupId>
-			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
-			<version>${openApiVersion}</version>
-		</dependency>
-		<dependency>
-			<groupId>io.swagger.core.v3</groupId>
-			<artifactId>swagger-annotations</artifactId>
-			<version>${swaggerVersion}</version>
-		</dependency>
 		<!-- Logback Gelf -->
 		<dependency>
 			<groupId>de.siegmar</groupId>
@@ -105,8 +105,8 @@
 		</dependency>
 		<!-- Kafka and Avro and Schema Registry Confluent -->
 		<dependency>
-			<groupId>org.springframework.kafka</groupId>
-			<artifactId>spring-kafka</artifactId>
+			<groupId>org.apache.kafka</groupId>
+			<artifactId>kafka-streams</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>io.confluent</groupId>
@@ -130,7 +130,6 @@
 			<version>${modelMapperVersion}</version>
 		</dependency>
 	</dependencies>
-
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
@@ -159,7 +158,7 @@
 					</schemaRegistryUrls>
 					<outputDirectory>src/main/resources/avro</outputDirectory>
 					<subjectPatterns>
-						<param>^${spring.kafka.topic.order}-(key|value)$</param>
+						<param>^${spring.kafka.topic.invoice}-(key|value)$</param>
 					</subjectPatterns>
 					<compatibilityLevels/>
 					<messagePath/>
