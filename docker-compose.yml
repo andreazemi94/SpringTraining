@@ -179,7 +179,7 @@ services:
     image: spring-training_invoice-microservice:latest
     container_name: spring-training_invoice-microservice
     ports:
-      - "8081:8081"
+      - "8082:8082"
     environment:
       SPRING_CONFIG_IMPORT: configserver:http://config-server.spring-training.it:8888
       SPRING_CLOUD_CONFIG_URI: http://config-server.spring-training.it:8888
