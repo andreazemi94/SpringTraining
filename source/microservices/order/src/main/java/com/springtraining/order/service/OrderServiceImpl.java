@@ -20,30 +20,19 @@ public class OrderServiceImpl implements OrderService{
 
     @Transactional
     @Override
-    public Optional<Order> save(Order order) {
-        if(orderRepository.findById(order.getOrderId()).isPresent())
-            return Optional.empty();
-        return Optional.of(create(order));
-
+    public Order save(Long customerId, Double totalAmount) {
+        return create(customerId,totalAmount);
     }
 
-    private Order create(Order order){
-        order.setStatus(OrderStatus.PROCESSING);
-        log.info("Set order status: {}", order);
+    private Order create(Long customerId, Double totalAmount){
+        Order order = orderRepository.save(Order.builder().build());
+        order.setCustomerId(customerId);
         order.setOrderDate(new Date());
-        log.info("Set order date: {}", order);
-        orderRepository.save(order);
+        order.setStatus(OrderStatus.PROCESSING);
+        order.setTotalAmount(totalAmount);
         log.info("Order created successfully in the database: {}", order);
         kafkaProducer.sendMessage(order);
         return order;
-    }
-
-    @Transactional
-    @Override
-    public void updateStatus(Order order, OrderStatus status) {
-        order.setStatus(status);
-        log.info("Set order status: {}", order);
-        save(order);
     }
 
     @Override

@@ -7,9 +7,7 @@ import java.util.Optional;
 
 public interface OrderService {
 
-    Optional<Order> save(Order order);
-
-    void updateStatus(Order order, OrderStatus status);
+    Order save(Long customerId, Double totalAmount);
 
     Optional<Order> findById(Long orderId);
 

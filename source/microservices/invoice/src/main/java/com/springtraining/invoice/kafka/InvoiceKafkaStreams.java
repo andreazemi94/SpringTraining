@@ -1,5 +1,7 @@
 package com.springtraining.invoice.kafka;
 
+import com.springtraining.invoice.model.Invoice;
+import com.springtraining.invoice.service.InvoiceService;
 import com.springtraining.order.model.dto.OrderDto;
 import io.confluent.kafka.streams.serdes.avro.SpecificAvroSerde;
 import lombok.RequiredArgsConstructor;
@@ -22,13 +24,19 @@ public class InvoiceKafkaStreams {
     @Value("${spring.kafka.topic.invoice}")
     private String invoiceTopic;
     private final SpecificAvroSerde<OrderDto> orderDtoSpecificAvroSerde;
+    private final InvoiceService invoiceService;
+    private static final String ORDER_STATUS_PROCESSING = "PROCESSING";
 
     @Bean
     public KStream<String, OrderDto> invoiceKStream(StreamsBuilder streamsBuilder) {
-        KStream<String, OrderDto> stream = streamsBuilder
-                .stream(orderTopic, Consumed.with(Serdes.String(),orderDtoSpecificAvroSerde));
+        KStream<String, OrderDto> ordersToProcessingKStream = streamsBuilder
+                .stream(orderTopic, Consumed.with(Serdes.String(),orderDtoSpecificAvroSerde))
+                .filter((k,orderDto)-> orderDto.getStatus().equals(ORDER_STATUS_PROCESSING));
 
-        stream.peek((k,o)-> log.info(o.toString()));
-        return stream;
+        ordersToProcessingKStream.mapValues(Invoice::from)
+                .peek((k,invoice)-> log.info("Convert order to invoice, {}", invoice))
+                .mapValues((k,invoice)-> invoiceService.save(invoice))
+                .peek((k,invoice)-> log.info("Create invoice to db, {}", invoice));
+        return ordersToProcessingKStream;
     }
 }

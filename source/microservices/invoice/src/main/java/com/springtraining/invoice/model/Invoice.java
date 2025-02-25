@@ -1,6 +1,7 @@
 package com.springtraining.invoice.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.springtraining.order.model.dto.OrderDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -23,4 +24,12 @@ public class Invoice {
     private Date invoiceDate;
     private Double totalAmount;
 
+    public static Invoice from(OrderDto orderDto){
+        return Invoice.builder()
+                .customerId(orderDto.getCustomerId())
+                .orderId(orderDto.getOrderId())
+                .invoiceDate(new Date())
+                .totalAmount(orderDto.getTotalAmount())
+                .build();
+    }
 }

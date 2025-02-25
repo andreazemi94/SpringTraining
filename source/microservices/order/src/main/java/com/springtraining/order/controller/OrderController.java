@@ -22,9 +22,8 @@ public class OrderController {
             @ApiResponse(responseCode = "500", description = "Internal Server Error")
     })
     @PostMapping()
-    public ResponseEntity<Order> createOrder(@RequestBody Order order) {
-       return orderService.save(order)
-               .map(ResponseEntity::ok)
-               .orElseGet(()->ResponseEntity.badRequest().body(order));
+    public ResponseEntity<Order> createOrder(@RequestParam Long customerId, @RequestParam Double totalAmount) {
+        Order order = orderService.save(customerId,totalAmount);
+        return (order.getOrderId()>0) ? ResponseEntity.ok(order) : ResponseEntity.badRequest().body(order);
     }
 }
