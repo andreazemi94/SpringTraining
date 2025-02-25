@@ -1,10 +1,7 @@
 package com.springtraining.invoice.config;
 
-import com.springtraining.order.model.dto.OrderDto;
-import io.confluent.kafka.streams.serdes.avro.SpecificAvroSerde;
-import org.apache.kafka.clients.consumer.ConsumerConfig;
+import io.confluent.kafka.streams.serdes.avro.GenericAvroSerde;
 import org.apache.kafka.common.serialization.Serdes;
-import org.apache.kafka.streams.StreamsBuilder;
 import org.apache.kafka.streams.StreamsConfig;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
@@ -40,11 +37,12 @@ public class KafkaStreamsConfig {
     }
 
     @Bean
-    public SpecificAvroSerde<OrderDto> orderAvroSerde() {
-        SpecificAvroSerde<OrderDto> serde = new SpecificAvroSerde<>();
-        Map<String, String> config = new HashMap<>();
-        config.put("schema.registry.url", schemaRegistryUrl);
-        serde.configure(config, false);
-        return serde;
+    public GenericAvroSerde genericAvroSerde(){
+        Map<String, String> serdeConfig = new HashMap<>();
+        serdeConfig.put("schema.registry.url", schemaRegistryUrl);
+        serdeConfig.put("specific.avro.reader", "false");
+        GenericAvroSerde genericAvroSerde = new GenericAvroSerde();
+        genericAvroSerde.configure(serdeConfig,false);
+        return genericAvroSerde;
     }
 }

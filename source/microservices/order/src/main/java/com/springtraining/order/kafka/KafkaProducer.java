@@ -23,7 +23,7 @@ public class KafkaProducer {
         ProducerRecord<String,GenericRecord> record = new ProducerRecord<>(
                 orderTopic,
                 String.valueOf(order.getOrderId()),
-                genericRecordUtil.create(order,orderTopic)
+                genericRecordUtil.serialize(order,orderTopic)
         );
         kafkaTemplate.send(record)
                 .thenAcceptAsync(sentResult-> log.info("Sended message to topic {}, {}", orderTopic, order))

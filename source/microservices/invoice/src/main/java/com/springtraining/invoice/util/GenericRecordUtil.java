@@ -1,4 +1,4 @@
-package com.springtraining.order.util;
+package com.springtraining.invoice.util;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -11,6 +11,7 @@ import org.apache.avro.generic.GenericData;
 import org.apache.avro.generic.GenericRecord;
 import org.springframework.stereotype.Service;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 
 @Service
@@ -28,7 +29,18 @@ public class GenericRecordUtil {
             schema.getFields().forEach(field-> record.put(field.name(),map.get(field.name())));
             return record;
         } catch (IOException | RestClientException e) {
-            log.error(e.getMessage());
+            log.error("Errore nella serializzazione dell'entity in GenericRecord", e);
+            throw new RuntimeException(e);
+        }
+    }
+
+    public <T> T deserialize(GenericRecord record, Class<T> clazz) {
+        try {
+            Map<String, Object> map = new HashMap<>();
+            record.getSchema().getFields().forEach(field -> map.put(field.name(), record.get(field.name())));
+            return objectMapper.convertValue(map, clazz);
+        } catch (Exception e) {
+            log.error("Errore nella deserializzazione del GenericRecord in entity", e);
             throw new RuntimeException(e);
         }
     }
