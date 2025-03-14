@@ -1,0 +1,7 @@
+
+spring:
+  application:
+    name: loginjwt-microservice
+
+server:
+  port: 8095
