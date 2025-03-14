@@ -25,3 +25,7 @@ spring:
   graylog:
     host: localhost
     port: 12201
+
+  security:
+    jwt:
+      secret-key: my-secret-key
