@@ -9,10 +9,10 @@ spring:
             redirect-uri: "{baseUrl}/login/oauth2/code/keycloak"
         provider:
           keycloak:
-            issuer-uri: http://localhost:8095/realms/SpringTraining
+            issuer-uri: http://0.0.0.0:8095/realms/SpringTraining
       resourceserver:
         jwt:
-          issuer-uri: http://localhost:8095/realms/SpringTraining/protocol/openid-connect/certs
+          issuer-uri: http://0.0.0.0:8095/realms/SpringTraining/protocol/openid-connect/certs
   datasource:
     url: jdbc:postgresql://postgresql:5432/spring-training
     username: spring-training_user
