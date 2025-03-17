@@ -8,7 +8,7 @@ spring:
         registration:
           keycloak:
             client-id: order-microservice
-            client-secret: JMISSz1eQp9jWtnhJLNWr4ewxCVqDyvN
+            client-secret: 5f1BPnbt6PS8gSUihocAPuPINFEBrVtC
   kafka:
     topic:
       order: com.springtraining.order.messages
