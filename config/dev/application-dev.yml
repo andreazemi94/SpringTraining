@@ -1,11 +1,16 @@
-spring:
 
+keycloak:
+  auth-server-url: http://localhost:8095/realms/Spring Training
+  realm: Spring Training
+  bearer-only: true
+  public-client: false
+
+spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/spring-training
     username: spring-training_user
     password: spring-training
     driver-class-name: org.postgresql.Driver
-
   jpa:
     hibernate:
       ddl-auto: update
@@ -13,7 +18,6 @@ spring:
     properties:
       hibernate:
         format_sql: true
-
   kafka:
     bootstrap-servers: localhost:29092
     properties:
@@ -21,7 +25,15 @@ spring:
         registry:
           cache-capacity: 10000
           url: http://localhost:8085
-
   graylog:
     host: localhost
     port: 12201
+  security:
+    oauth2:
+      client:
+        registration:
+          keycloak:
+            provider: keycloak
+        provider:
+          keycloak:
+            issuer-uri: http://localhost:8095/realms/Spring Training
