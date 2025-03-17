@@ -30,3 +30,13 @@ spring:
     jwt:
       secret-key: my-secret-key
       expiration-time: 86400000
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: 889281652725-qto4qlcsgjah8qq04or1sc0o79dvlf1h.apps.googleusercontent.com
+            client-secret: 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
+            scope: 
+              - openid
+              - profile
+              - email
