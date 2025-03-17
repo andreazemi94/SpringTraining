@@ -1,7 +1,3 @@
-keycloak:
-	resource: order-microservice
-		credentials:
-		  secret: ${KEYCLOAK_CLIENT_SECRET}
 spring:
   application:
     name: order-microservice
