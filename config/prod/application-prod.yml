@@ -1,11 +1,23 @@
 spring:
-
+  security:
+    oauth2:
+      client:
+        registration:
+          keycloak:
+            scope: openid
+            authorization-grant-type: authorization_code
+            redirect-uri: "{baseUrl}/login/oauth2/code/keycloak"
+        provider:
+          keycloak:
+            issuer-uri: http://keycloak:8095/realms/SpringTraining
+      resourceserver:
+        jwt:
+          issuer-uri: http://keycloak:8095/realms/SpringTraining/protocol/openid-connect/certs
   datasource:
     url: jdbc:postgresql://postgresql:5432/spring-training
     username: spring-training_user
     password: spring-training
     driver-class-name: org.postgresql.Driver
-
   jpa:
     hibernate:
       ddl-auto: update
@@ -13,7 +25,6 @@ spring:
     properties:
       hibernate:
         format_sql: true
-
   kafka:
     bootstrap-servers: kafka:9092
     properties:
@@ -21,7 +32,6 @@ spring:
         registry:
           cache-capacity: 10000
           url: http://schema-registry:8085
-
   graylog:
     host: graylog
     port: 12201
