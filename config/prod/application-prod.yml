@@ -25,8 +25,3 @@ spring:
   graylog:
     host: graylog
     port: 12201
-
-  security:
-    jwt:
-      secret-key: my-secret-key
-      expiration-time: 86400000
