@@ -17,10 +17,10 @@ spring:
             redirect-uri: "{baseUrl}/login/oauth2/code/keycloak"
         provider:
           keycloak:
-            issuer-uri: http://localhost:8095/realms/Spring Training
+            issuer-uri: http://localhost:8095/realms/Spring%20Training
       resourceserver:
         jwt:
-          issuer-uri: http://localhost:8095/realms/Spring Training
+          issuer-uri: http://localhost:8095/realms/Spring%20Training
   kafka:
     topic:
       order: com.springtraining.order.messages
