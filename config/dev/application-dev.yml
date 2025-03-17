@@ -36,4 +36,4 @@ spring:
             provider: keycloak
         provider:
           keycloak:
-            issuer-uri: http://localhost:8095/realms/myrealm
+            issuer-uri: http://localhost:8095/realms/Spring Training
