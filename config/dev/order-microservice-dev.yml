@@ -8,15 +8,6 @@ spring:
           keycloak:
             client-id: order-microservice
             client-secret: ${KEYCLOAK_CLIENT_SECRET}
-            scope: openid
-            authorization-grant-type: authorization_code
-            redirect-uri: "{baseUrl}/login/oauth2/code/keycloak"
-        provider:
-          keycloak:
-            issuer-uri: http://localhost:8095/realms/SpringTraining
-      resourceserver:
-        jwt:
-          issuer-uri: http://localhost:8095/realms/SpringTraining/protocol/openid-connect/certs
   kafka:
     topic:
       order: com.springtraining.order.messages
