@@ -173,32 +173,7 @@ services:
       spring-training:
         aliases:
           - keycloak.spring-training.it
-  keycloak2:
-    image: quay.io/keycloak/keycloak:latest
-    container_name: spring-training_keycloak2
-    environment:
-      KC_DB: postgres
-      KC_DB_URL: jdbc:postgresql://postgresql:5432/spring-training
-      KC_DB_USERNAME: spring-training_user
-      KC_DB_PASSWORD: spring-training
-      KC_HOSTNAME: keycloak
-      KC_HOSTNAME_PORT: 8099
-      KC_HOSTNAME_STRICT: false
-      KC_HOSTNAME_STRICT_HTTPS: false
-      KC_LOG_LEVEL: info
-      KC_METRICS_ENABLED: true
-      KC_HEALTH_ENABLED: true
-      KC_BOOTSTRAP_ADMIN_USERNAME: admin
-      KC_BOOTSTRAP_ADMIN_PASSWORD: admin
-    command: start-dev --http-port=8096
-    ports:
-      - "8096:8096"
-    depends_on:
-      - postgresql
-    networks:
-      spring-training:
-        aliases:
-          - keycloak2.spring-training.it
+
   config-server:
     image: spring-training_config-server:latest
     container_name: spring-training_config_server
@@ -222,7 +197,7 @@ services:
       SPRING_CLOUD_CONFIG_LABEL: main
       SPRING_CLOUD_CONFIG_PROFILE: prod
       SPRING_CLOUD_CONFIG_FAILFAST: "true"
-      KEYCLOAK_CLIENT_SECRET: 5f1BPnbt6PS8gSUihocAPuPINFEBrVtC
+      KEYCLOAK_CLIENT_SECRET: JMISSz1eQp9jWtnhJLNWr4ewxCVqDyvN
     networks:
       spring-training:
         aliases:
