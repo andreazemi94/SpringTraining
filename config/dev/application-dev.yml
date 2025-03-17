@@ -28,12 +28,3 @@ spring:
   graylog:
     host: localhost
     port: 12201
-  security:
-    oauth2:
-      client:
-        registration:
-          keycloak:
-            provider: keycloak
-        provider:
-          keycloak:
-            issuer-uri: http://localhost:8095/realms/Spring Training
