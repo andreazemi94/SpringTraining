@@ -5,6 +5,13 @@ keycloak:
 spring:
   application:
     name: order-microservice
+  security:
+    oauth2:
+      client:
+        registration:
+          keycloak:
+            client-id: order-microservice
+            client-secret: <client-secret>
   kafka:
     topic:
       order: com.springtraining.order.messages
