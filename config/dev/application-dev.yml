@@ -25,3 +25,9 @@ spring:
   graylog:
     host: localhost
     port: 12201
+
+  keycloak:
+    auth-server-url: http://localhost:8095/realms/Spring Training
+    realm: Spring Training
+    bearer-only: true
+    public-client: false
