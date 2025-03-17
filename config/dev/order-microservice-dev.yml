@@ -5,8 +5,8 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: http://localhost:8095/realms/Spring%20Training  # URI del realm di Keycloak
-          jwk-set-uri: http://localhost:8095/realms/Spring%20Training/protocol/openid-connect/certs  # Endpoint per i certificati pubblici
+          issuer-uri: http://localhost:8095/realms/SpringTraining  # URI del realm di Keycloak
+          jwk-set-uri: http://localhost:8095/realms/SpringTraining/protocol/openid-connect/certs  # Endpoint per i certificati pubblici
   kafka:
     topic:
       order: com.springtraining.order.messages
