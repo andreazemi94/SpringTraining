@@ -155,7 +155,7 @@ services:
       KC_DB_URL: jdbc:postgresql://postgresql:5432/spring-training
       KC_DB_USERNAME: spring-training_user
       KC_DB_PASSWORD: spring-training
-      KC_HOSTNAME: keycloak.spring-training.it
+      KC_HOSTNAME: localhost
       KC_HOSTNAME_PORT: 8095
       KC_HOSTNAME_STRICT: false
       KC_HOSTNAME_STRICT_HTTPS: false
