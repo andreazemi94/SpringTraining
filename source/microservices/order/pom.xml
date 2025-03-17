@@ -27,6 +27,7 @@
 		<mavenCompilerVersion>1.8</mavenCompilerVersion>
 		<logbackGelfVersion>6.1.1</logbackGelfVersion>
 		<spring-cloud.version>2024.0.0</spring-cloud.version>
+		<keycloakVersion>25.0.3</keycloakVersion>
 	</properties>
 
 	<repositories>
@@ -60,6 +61,16 @@
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-config</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+		<!-- Keycloak Spring Boot Adapter -->
+		<dependency>
+			<groupId>org.keycloak</groupId>
+			<artifactId>keycloak-spring-boot-starter</artifactId>
+			<version>${keycloakVersion}</version>
 		</dependency>
 		<!-- PostgreSQL -->
 		<dependency>

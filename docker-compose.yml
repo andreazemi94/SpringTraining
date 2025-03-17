@@ -197,6 +197,7 @@ services:
       SPRING_CLOUD_CONFIG_LABEL: main
       SPRING_CLOUD_CONFIG_PROFILE: prod
       SPRING_CLOUD_CONFIG_FAILFAST: "true"
+      KEYCLOAK_CLIENT_SECRET: 5f1BPnbt6PS8gSUihocAPuPINFEBrVtC
     networks:
       spring-training:
         aliases:
