@@ -1,6 +1,6 @@
 
 keycloak:
-  auth-server-url: http://localhost:8095/realms/Spring Training
+  auth-server-url: http://localhost:8095/realms/Spring%20Training
   realm: Spring Training
   bearer-only: true
   public-client: false
