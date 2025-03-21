@@ -6,9 +6,9 @@ networks:
     driver: bridge
 
 volumes:
-  postgres-volume-kafka-graylog:
-  mongo-data-kafka-graylog:
-  es-data-kafka-graylog:
+  postgres-volume-spring-training:
+  mongo-data-spring-training:
+  es-data-spring-training:
 
 services:
   kafka:
@@ -107,7 +107,7 @@ services:
     image: mongo:5.0
     container_name: spring-training_mongo
     volumes:
-      - mongo-data-kafka-graylog:/data/db
+      - mongo-data-spring-training:/data/db
     networks:
       spring-training:
         aliases:
@@ -123,7 +123,7 @@ services:
       - "9200:9200"
       - "9300:9300"
     volumes:
-      - es-data-kafka-graylog:/usr/share/elasticsearch/data
+      - es-data-spring-training:/usr/share/elasticsearch/data
     networks:
       spring-training:
         aliases:
@@ -141,38 +141,38 @@ services:
       - PGDATA=/var/lib/postgresql/data/pgdata
       - SCHED_DB_BACKUP="false"
     volumes:
-      - postgres-volume-kafka-graylog:/var/lib/postgresql/data/pgdata
+      - postgres-volume-spring-training:/var/lib/postgresql/data/pgdata
     networks:
       spring-training:
         aliases:
           - postgres.spring-training.it
 
-  keycloak:
-    image: quay.io/keycloak/keycloak:latest
-    container_name: spring-training_keycloak
-    environment:
-      KC_DB: postgres
-      KC_DB_URL: jdbc:postgresql://postgresql:5432/spring-training
-      KC_DB_USERNAME: spring-training_user
-      KC_DB_PASSWORD: spring-training
-      KC_HOSTNAME: localhost
-      KC_HOSTNAME_PORT: 8095
-      KC_HOSTNAME_STRICT: false
-      KC_HOSTNAME_STRICT_HTTPS: false
-      KC_LOG_LEVEL: info
-      KC_METRICS_ENABLED: true
-      KC_HEALTH_ENABLED: true
-      KC_BOOTSTRAP_ADMIN_USERNAME: admin
-      KC_BOOTSTRAP_ADMIN_PASSWORD: admin
-    command: start-dev --http-port=8095
-    ports:
-      - "8095:8095"
-    depends_on:
-      - postgresql
-    networks:
-      spring-training:
-        aliases:
-          - keycloak.spring-training.it
+#  keycloak:
+#    image: quay.io/keycloak/keycloak:latest
+#    container_name: spring-training_keycloak
+#    environment:
+#      KC_DB: postgres
+#      KC_DB_URL: jdbc:postgresql://postgresql:5432/spring-training
+#      KC_DB_USERNAME: spring-training_user
+#      KC_DB_PASSWORD: spring-training
+#      KC_HOSTNAME: localhost
+#      KC_HOSTNAME_PORT: 8095
+#      KC_HOSTNAME_STRICT: false
+#      KC_HOSTNAME_STRICT_HTTPS: false
+#      KC_LOG_LEVEL: info
+#      KC_METRICS_ENABLED: true
+#      KC_HEALTH_ENABLED: true
+#      KC_BOOTSTRAP_ADMIN_USERNAME: admin
+#      KC_BOOTSTRAP_ADMIN_PASSWORD: admin
+#    command: start-dev --http-port=8095
+#    ports:
+#      - "8095:8095"
+#    depends_on:
+#      - postgresql
+#    networks:
+#      spring-training:
+#        aliases:
+#          - keycloak.spring-training.it
 
   config-server:
     image: spring-training_config-server:latest
