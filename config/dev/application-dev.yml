@@ -46,7 +46,7 @@ resilience4j:
             retryExceptions:
                 - java.lang.RuntimeException
             ignoreExceptions:
-                - io.github.robwin.exception.BusinessException
+                - java.lang.ArithmeticException
   circuitbreaker:
     instances:
       externalService:
