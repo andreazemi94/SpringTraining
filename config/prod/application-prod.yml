@@ -1,4 +1,9 @@
 spring:
+  cloud:
+    bus:
+      enabled: true
+  kafka:
+    bootstrap-servers: kafka:9092
   datasource:
     url: jdbc:postgresql://postgresql:5432/spring-training
     username: spring-training_user
