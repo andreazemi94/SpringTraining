@@ -34,3 +34,13 @@ management:
     app:
       name: Spring Training Service
       version: 1.0.0
+      
+resilience4j:
+  circuitbreaker:
+    instances:
+      eternalService:
+        slidingWindowSize: 10           # Analizza le ultime 10 richieste
+        failureRateThreshold: 50        # Si apre se il 50% fallisce
+        waitDurationInOpenState: 10s    # Resta aperto per 10 secondi
+        permittedNumberOfCallsInHalfOpenState: 3  # In Half-Open permette 3 chiamate di test
+        registerHealthIndicator: true   # Mostra lo stato in Actuator
