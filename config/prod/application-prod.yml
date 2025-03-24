@@ -1,18 +1,4 @@
 spring:
-  security:
-    oauth2:
-      client:
-        registration:
-          keycloak:
-            scope: openid
-            authorization-grant-type: authorization_code
-            redirect-uri: "{baseUrl}/login/oauth2/code/keycloak"
-        provider:
-          keycloak:
-            issuer-uri: http://localhost:8095/realms/SpringTraining
-      resourceserver:
-        jwt:
-          issuer-uri: http://localhost:8095/realms/SpringTraining/protocol/openid-connect/certs
   datasource:
     url: jdbc:postgresql://postgresql:5432/spring-training
     username: spring-training_user
@@ -35,3 +21,16 @@ spring:
   graylog:
     host: graylog
     port: 12201
+    
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, info, metrics, refresh, env, configprops
+  endpoint:
+    health:
+      show-details: always
+  info:
+    app:
+      name: Spring Training Service
+      version: 1.0.0

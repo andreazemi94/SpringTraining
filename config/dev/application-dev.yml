@@ -21,3 +21,16 @@ spring:
   graylog:
     host: localhost
     port: 12201
+    
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, info, metrics, refresh, env, configprops
+  endpoint:
+    health:
+      show-details: always
+  info:
+    app:
+      name: Spring Training Service
+      version: 1.0.0
