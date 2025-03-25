@@ -42,7 +42,6 @@ public class InvoiceKafkaStreams {
                 .peek((key,invoice)-> log.info("Serialize invoice {} to GenericRecord",invoice))
                 .mapValues(invoice-> genericRecordUtil.serialize(invoice,invoiceTopic))
                 .peek((key,invoice)-> log.info("Sending invoice to topic {}, {}",invoiceTopic,invoice))
-                .peek((key,invoice)-> log.info(externalService.simulationDelay("500")))
                 .to(invoiceTopic, Produced.with(Serdes.String(), genericAvroSerde));
 
         return kStream;
