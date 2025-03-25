@@ -1,5 +1,6 @@
 package com.springtraining.invoice.kafka;
 
+import com.springtraining.invoice.externalService.ExternalServiceImpl;
 import com.springtraining.invoice.model.Invoice;
 import com.springtraining.invoice.service.InvoiceService;
 import com.springtraining.invoice.util.GenericRecordUtil;
@@ -28,6 +29,7 @@ public class InvoiceKafkaStreams {
     private final GenericAvroSerde genericAvroSerde;
     private final InvoiceService invoiceService;
     private final GenericRecordUtil genericRecordUtil;
+    private final ExternalServiceImpl externalService;
 
     @Bean
     public KStream<String, GenericRecord> invoiceKStream(StreamsBuilder streamsBuilder) {
@@ -40,6 +42,7 @@ public class InvoiceKafkaStreams {
                 .peek((key,invoice)-> log.info("Serialize invoice {} to GenericRecord",invoice))
                 .mapValues(invoice-> genericRecordUtil.serialize(invoice,invoiceTopic))
                 .peek((key,invoice)-> log.info("Sending invoice to topic {}, {}",invoiceTopic,invoice))
+                .peek((key,invoice)-> log.info(externalService.simulationDelay("500")))
                 .to(invoiceTopic, Produced.with(Serdes.String(), genericAvroSerde));
 
         return kStream;

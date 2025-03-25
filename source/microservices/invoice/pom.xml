@@ -36,6 +36,7 @@
 		<mavenCompilerVersion>1.8</mavenCompilerVersion>
 		<logbackGelfVersion>6.1.1</logbackGelfVersion>
 		<spring-cloud.version>2024.0.0</spring-cloud.version>
+		<resilience4jVersion>2.2.0</resilience4jVersion>
 	</properties>
 
 	<repositories>
@@ -59,11 +60,19 @@
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-webflux</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-config</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -116,6 +125,11 @@
 			<groupId>io.confluent</groupId>
 			<artifactId>kafka-streams-avro-serde</artifactId>
 			<version>${avroSchemaVersion}</version>
+		</dependency>
+		<dependency>
+			<groupId>io.github.resilience4j</groupId>
+			<artifactId>resilience4j-spring-boot3</artifactId>
+			<version>${resilience4jVersion}</version>
 		</dependency>
 	</dependencies>
 	<dependencyManagement>
