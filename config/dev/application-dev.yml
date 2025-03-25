@@ -36,6 +36,12 @@ management:
       version: 1.0.0
       
 resilience4j:
+  ratelimiter:
+    instances:
+      externalService:
+        limitForPeriod: 5
+        limitRefreshPeriod: 10s
+        timeoutDuration: 1s
   retry:
     instances:
         externalService:
