@@ -39,19 +39,18 @@ resilience4j:
   retry:
     instances:
         externalService:
-            maxAttempts: 3
-            waitDuration: 10s
-            enableExponentialBackoff: true
-            exponentialBackoffMultiplier: 2
-            retryExceptions:
-                - java.lang.RuntimeException
-            ignoreExceptions:
-                - java.lang.ArithmeticException
+            maxAttempts: 3  
+            waitDuration: 10s 
+            enableExponentialBackoff: true 
+            exponentialBackoffMultiplier: 2  
+                - java.lang.RuntimeException 
+            ignoreExceptions:  
+                - java.lang.ArithmeticException 
   circuitbreaker:
     instances:
       externalService:
-        slidingWindowSize: 10           # Analizza le ultime 10 richieste
-        failureRateThreshold: 50        # Si apre se il 50% fallisce
-        waitDurationInOpenState: 10s    # Resta aperto per 10 secondi
-        permittedNumberOfCallsInHalfOpenState: 3  # In Half-Open permette 3 chiamate di test
-        registerHealthIndicator: true   # Mostra lo stato in Actuator
+        slidingWindowSize: 10          
+        failureRateThreshold: 50       
+        waitDurationInOpenState: 10s    
+        permittedNumberOfCallsInHalfOpenState: 3  
+        registerHealthIndicator: true   
