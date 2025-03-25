@@ -36,13 +36,17 @@ management:
       version: 1.0.0
       
 resilience4j:
+  timelimiter:
+    instances:
+      externalService:
+        timeoutDuration: 500ms
+        cancelRunningFuture: true
   ratelimiter:
     instances:
       externalService:
         limitForPeriod: 5
         limitRefreshPeriod: 10s
         timeoutDuration: 1s
-        subscribe-for-events: true
   retry:
     instances:
         externalService:
