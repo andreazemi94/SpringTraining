@@ -42,6 +42,7 @@ resilience4j:
         limitForPeriod: 5
         limitRefreshPeriod: 10s
         timeoutDuration: 1s
+        subscribe-for-events: true
   retry:
     instances:
         externalService:
